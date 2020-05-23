@@ -1,0 +1,23 @@
+{
+  "baseUrl": ".",
+  "paths": {
+    "resources/*": [
+      "./*"
+    ]
+  },
+  "compilerOptions": {
+    "jsx": "react",
+    "outDir": "build",
+    "target": "es6",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "typeRoots": ["node_modules/@types"]
+  },
+  "include": [
+    "./**/**.tsx"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
