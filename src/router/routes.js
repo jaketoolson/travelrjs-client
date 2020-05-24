@@ -1,6 +1,6 @@
 'use strict';
 
-import Home from 'client/views/Home';
+import Home from '../views/Home';
 
 export default [
   {

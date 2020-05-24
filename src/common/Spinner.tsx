@@ -2,13 +2,11 @@ import * as React from 'react';
 import {CSSProperties} from "react";
 import { BounceLoader } from 'react-spinners';
 import {store} from "./state/types";
-import {connect} from "net";
 
 interface SpinnerState {
   loading: boolean
 }
 
-// {props}, {state}
 export default class Spinner extends React.Component <{}, SpinnerState> {
   constructor(props) {
     super(props);

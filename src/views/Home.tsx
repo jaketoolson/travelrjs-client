@@ -20,9 +20,9 @@ export default class Home extends React.Component {
               Vacation anywhere in the universe.
             </h1>
             <SearchPlanets />
+          </div>
         </div>
-      </div>
-  </section>
+      </section>
     );
   }
 }

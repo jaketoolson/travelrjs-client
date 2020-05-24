@@ -1,15 +1,13 @@
-import http from '@/router/axios'
-import { getRouteByName } from '@/router';
+import http from "axios";
 
 const ApiService = {
-  init () {},
   query (resource, params) {
     return http.get(resource, {params: params})
       .catch((error) => {
         throw new Error(`ApiService ${error}`)
       })
   },
-  get (resource) {
+  get (resource, config?:any) {
     return http.get(resource)
       .catch((error) => {
         throw new Error(`ApiService ${error}`)
@@ -22,21 +20,21 @@ export default ApiService;
 // FIXME: Break these out.
 export const GalaxiesService = {
   all () {
-    return ApiService.get(getRouteByName('api.galaxies'));
+    return ApiService.get('http://oriontravelr.com/api/galaxies');
   },
 };
 
 export const AmenitiesService = {
   all () {
-    return ApiService.get(getRouteByName('api.amenities'));
+    return ApiService.get('http://oriontravelr.com/api/amenities');
   },
 };
 
 export const PlanetsService = {
   query (params) {
-    return ApiService.query(getRouteByName('api.planets'), params);
+    return ApiService.query('', params);
   },
-  get (id) {
-    return ApiService.get(getRouteByName('api.planets.show', {id: id}));
+  get (id: number) {
+    return ApiService.get('', {id: id});
   }
 };

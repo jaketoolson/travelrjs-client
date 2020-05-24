@@ -1,9 +1,8 @@
-
 const path = require('path');
 
 module.exports = {
   mode: "production",
-  entry: ['./main.tsx'],
+  entry: ['./src/main.tsx'],
   output: {
     path: path.join(__dirname, '/builds/js'),
     filename: 'app.js'
@@ -23,9 +22,9 @@ module.exports = {
     ],
   },
   resolve: {
-    extensions: ['.js', '.tsx', '.tx', '.jsx', '.json'],
+    extensions: ['.js', '.tsx', '.ts', '.tx', '.jsx', '.json'],
     alias: {
-      'client': path.resolve('client'),
+      'src': path.resolve('src'),
     }
   },
 };
