@@ -1,5 +1,7 @@
 import * as React from 'react';
-import {AmenitiesService, GalaxiesService} from "../../common/api.service";
+import { withRouter } from "react-router-dom";
+import {AmenitiesService, GalaxiesService} from "../common/api.service";
+const qs = require('qs');
 
 interface BaseApiEntity {
   type: string,
@@ -18,7 +20,7 @@ interface SearchPlanetsState {
   selected_amenities_id: Array<number>|null,
 }
 
-export default class SearchPlanets extends React.Component<{}, SearchPlanetsState> {
+class SearchPlanets extends React.Component<any, SearchPlanetsState> {
   constructor(props) {
     super(props);
     this.state = {
@@ -58,11 +60,13 @@ export default class SearchPlanets extends React.Component<{}, SearchPlanetsStat
   }
 
   handleSearch = (): void => {
-    if (!this.state.planet_name) {
-      return;
-    }
+    const queryString = qs.stringify({
+      name: this.state.planet_name,
+      galaxy_id: this.state.selected_galaxy_id,
+      amenities: this.state.selected_amenities_id?.join()
+      }, {encode: false });
 
-    alert(this.state.planet_name);
+    return this.props.history.push(`/planets?${queryString}`);
   }
 
   render() {
@@ -99,3 +103,6 @@ export default class SearchPlanets extends React.Component<{}, SearchPlanetsStat
     );
   }
 }
+
+export default withRouter(SearchPlanets);
+

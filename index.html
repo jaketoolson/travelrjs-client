@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="">
@@ -11,11 +11,37 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
     <link href="http://oriontravelr.com/build/css/vendor-6d4b44b835ea39ed6ff6.css" rel="stylesheet">
     <link href="http://oriontravelr.com/build/css/app-6d4b44b835ea39ed6ff6.css" rel="stylesheet">
+    <style>
+        .fade-enter-active, .fade-leave-active {
+            transition: opacity 0.8s ease-out;
+        }
+        .fade-enter, .fade-leave-to {
+            opacity: 0;
+            transition: opacity 0.8s ease-out;
+        }
+
+        .planet-container .card-img-header {
+            position: relative;
+        }
+        .planet-container .card-img-top{
+            width: 100%;
+            height: 50vw;
+            object-fit: cover;
+        }
+        .planet-container .btn-photos {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+        }
+        .planet-container .card.border {
+            border: 1px solid #dee2e6 !important;;
+        }
+    </style>
 
     <script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
 </head>
 <body>
     <main id="app"></main>
-<script src="/builds/js/app.js"></script>
+    <script src="/builds/js/app.js"></script>
 </body>
 </html>

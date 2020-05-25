@@ -1,12 +1,7 @@
 import http from "axios";
+const qs = require('qs');
 
 const ApiService = {
-  query (resource, params) {
-    return http.get(resource, {params: params})
-      .catch((error) => {
-        throw new Error(`ApiService ${error}`)
-      })
-  },
   get (resource, config?:any) {
     return http.get(resource)
       .catch((error) => {
@@ -20,21 +15,22 @@ export default ApiService;
 // FIXME: Break these out.
 export const GalaxiesService = {
   all () {
-    return ApiService.get('http://oriontravelr.com/api/galaxies');
+    return ApiService.get(`${process.env.GALAXY_ENDPOINT}/galaxies`);
   },
 };
 
 export const AmenitiesService = {
   all () {
-    return ApiService.get('http://oriontravelr.com/api/amenities');
+    return ApiService.get(`${process.env.GALAXY_ENDPOINT}/amenities`);
   },
 };
 
 export const PlanetsService = {
-  query (params) {
-    return ApiService.query('', params);
+  query (params: {[key: string]: string}) {
+    const q = qs.stringify({filter: params}, {encode: false });
+    return ApiService.get(`${process.env.GALAXY_ENDPOINT}/planets?${q}`);
   },
   get (id: number) {
-    return ApiService.get('', {id: id});
+    return ApiService.get(`${process.env.GALAXY_ENDPOINT}/planets/${id}`);
   }
 };
