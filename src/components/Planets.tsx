@@ -1,8 +1,10 @@
 import * as React from 'react';
-import {store} from "../common/state/types";
-import {stopLoading} from "../common/state/types";
-import {PlanetsService} from "../common/api.service";
+import {store} from "../context/store";
+import {stopLoading} from "../context/store";
+import {PlanetsService} from "../services/api.service";
 import { Link } from 'react-router-dom'
+import {StarRating} from "../common/Stars";
+
 const qs = require('qs');
 
 export default class Planets extends React.Component<any, { data, loading: boolean }> {
@@ -42,14 +44,20 @@ export default class Planets extends React.Component<any, { data, loading: boole
     }
 
     return !loading && data && (
-      <div className="mt-5 container">
+      <div className="mt-2 container">
+        <Link to="/" className="d-block text-center mb-2 mt-2"><i className="fas fa-home" /></Link>
         <div className="items row">
           {data.data.map((item) => {
             return (
-              <div className="col-sm-3">
+              <div className="col-sm-3" key={item.id}>
                 <div className="item">
                   <div className="card mb-4">
                     <img src={item.relationships.photo.links.thumb_src} alt={item.attributes.name} className="card-img-top"/>
+                    {/*<div className="card-img-overlay">*/}
+                    {/*  <span className="btn text-white text-right" onClick={() => this.toggleLike(item.id)}>*/}
+                    {/*    <i className="far fa-heart" />*/}
+                    {/*  </span>*/}
+                    {/*</div>*/}
                     <div className="card-body">
                       <small className="text-muted text-xs text-uppercase">{item.relationships.galaxy.meta.name}</small>
                       <h5 className="card-title">
@@ -57,7 +65,12 @@ export default class Planets extends React.Component<any, { data, loading: boole
                       </h5>
                       <p className="card-text text-muted">${item.attributes.price_dollars} per night</p>
                       <span className="text-muted text-xs">
-                          <span >{Math.ceil(item.attributes.average_rating)} reviews</span>
+                        <span>
+                          <StarRating rating={(item.attributes.average_rating)} />
+                        </span>
+                        <span className="ml-1">
+                          {item.attributes.total_reviews} Reviews
+                        </span>
                       </span>
                     </div>
                   </div>

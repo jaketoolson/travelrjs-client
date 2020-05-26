@@ -11,7 +11,7 @@ const envKeys = Object.keys(fileEnv).reduce((prev, next) => {
 
 
 module.exports = {
-  mode: "production",
+  mode: "development",
   entry: ['./src/main.tsx'],
   output: {
     path: path.join(__dirname, '/builds/js'),

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { withRouter } from "react-router-dom";
-import {AmenitiesService, GalaxiesService} from "../common/api.service";
+import {AmenitiesService, GalaxiesService} from "../services/api.service";
 const qs = require('qs');
 
 interface BaseApiEntity {

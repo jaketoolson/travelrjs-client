@@ -25,7 +25,7 @@ const initialState = {
     loading: true
 };
 
-function todoApp(state = initialState, action) {
+function reducers(state = initialState, action) {
     switch (action.type) {
         case SYSTEM_LOADING:
             return Object.assign({}, state, {loading: true});
@@ -36,4 +36,4 @@ function todoApp(state = initialState, action) {
     }
 }
 
-export const store = createStore(todoApp, (window as any).__REDUX_DEVTOOLS_EXTENSION__ && (window as any).__REDUX_DEVTOOLS_EXTENSION__());
+export const store = createStore(reducers, (window as any).__REDUX_DEVTOOLS_EXTENSION__ && (window as any).__REDUX_DEVTOOLS_EXTENSION__());

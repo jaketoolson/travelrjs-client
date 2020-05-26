@@ -2,7 +2,7 @@ import http from "axios";
 const qs = require('qs');
 
 const ApiService = {
-  get (resource, config?:any) {
+  get (resource:string , config?:any) {
     return http.get(resource)
       .catch((error) => {
         throw new Error(`ApiService ${error}`)
@@ -32,5 +32,8 @@ export const PlanetsService = {
   },
   get (id: number) {
     return ApiService.get(`${process.env.GALAXY_ENDPOINT}/planets/${id}`);
+  },
+  toggleLike (id: number) {
+    return ApiService.get(`${process.env.GALAXY_ENDPOINT}/planets/${id}/likes`);
   }
 };
