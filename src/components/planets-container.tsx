@@ -1,13 +1,13 @@
 import * as React from 'react';
-import {store} from "../context/store";
-import {stopLoading} from "../context/store";
-import {PlanetsService} from "../services/api.service";
 import { Link } from 'react-router-dom'
-import {StarRating} from "../common/Stars";
+import {store} from "@/context/store";
+import {stopLoading} from "@/context/store";
+import {PlanetsService} from "@/services/api.service";
+import {StarRating} from "@/common/Stars";
 
 const qs = require('qs');
 
-export default class Planets extends React.Component<any, { data, loading: boolean }> {
+export default class PlanetsContainer extends React.Component<any, { data, loading: boolean }> {
   constructor(props) {
     super(props);
     this.state = {

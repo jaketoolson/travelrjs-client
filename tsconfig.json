@@ -1,10 +1,4 @@
 {
-  "baseUrl": ".",
-  "paths": {
-    "resources/*": [
-      "./*"
-    ]
-  },
   "compilerOptions": {
     "jsx": "react",
     "outDir": "build",
@@ -12,7 +6,11 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "sourceMap": true,
-    "typeRoots": ["node_modules/@types"]
+    "typeRoots": ["node_modules/@types"],
+    "baseUrl": "./",
+    "paths": {
+      "@/*": ["src/*"]
+    }
   },
   "include": [
     "./**/**.tsx",

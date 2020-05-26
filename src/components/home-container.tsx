@@ -1,7 +1,7 @@
 import * as React from 'react';
-import {AmenitiesService, GalaxiesService} from "../../services/api.service";
-import {store} from "../../context/store";
-import {stopLoading} from "../../context/store";
+import {AmenitiesService, GalaxiesService} from "@/services/api.service";
+import {store} from "@/context/store";
+import {stopLoading} from "@/context/store";
 const qs = require('qs');
 
 interface BaseApiEntity {

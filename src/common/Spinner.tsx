@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {CSSProperties} from "react";
 import { BounceLoader } from 'react-spinners';
-import {store} from "../context/store";
+import {store} from "@/context/store";
 
 interface SpinnerState {
   loading: boolean

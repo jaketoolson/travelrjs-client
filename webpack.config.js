@@ -32,10 +32,10 @@ module.exports = {
     ],
   },
   resolve: {
-    extensions: ['.js', '.tsx', '.ts', '.tx', '.jsx', '.json'],
     alias: {
-      'src': path.resolve('src'),
-    }
+      '@': path.resolve('./src/')
+    },
+    extensions: ['.js', '.tsx', '.ts', '.tx', '.jsx', '.json'],
   },
   watchOptions: {
     ignored: [
