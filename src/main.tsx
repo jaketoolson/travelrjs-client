@@ -6,7 +6,7 @@ import Spinner from "./common/Spinner";
 import { Provider } from 'react-redux'
 import {store} from "./context/store";
 import Planets from "./components/Planets";
-import Home from "./components/Home";
+import HomeContainer from "./components/Home";
 
 ReactDOM.render(
   <Provider store={store}>
@@ -14,7 +14,7 @@ ReactDOM.render(
       <Spinner/>
       <Router>
         <Switch>
-          <Route exact path="/" component={Home} />
+          <Route exact path="/" component={HomeContainer} />
           <Route exact path="/planets" component={Planets} />
           <Route exact path="/planets/:id" component={Planet} />
         </Switch>
