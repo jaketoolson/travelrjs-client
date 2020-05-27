@@ -4,27 +4,24 @@ import {store} from "@/context/store";
 import {stopLoading} from "@/context/store";
 import {PlanetsService} from "@/services/api.service";
 import {StarRating} from "@/common/Stars";
+import ReviewsContainer from "@/components/reviews-container";
 
-export default class PlanetContainer extends React.Component<any, { planet, reviews }> {
+export default class PlanetContainer extends React.Component<any, { planet }> {
   constructor(props) {
     super(props);
-    this.state = {planet: null, reviews: []};
+    this.state = {planet: null};
   }
 
   async componentDidMount() {
     const id = this.props.match.params.id;
     const planetRes = await PlanetsService.get(id);
     const planet = await planetRes.data;
-    
-    const reviewsRes = await PlanetsService.reviews(id);
-    const reviews = await reviewsRes.data;
-
-    this.setState({planet: planet, reviews: reviews}, () => store.dispatch(stopLoading()));
+    this.setState({planet: planet}, () => store.dispatch(stopLoading()));
   }
 
   render() {
-    const {planet, reviews} = this.state;
-    return planet && reviews && (
+    const {planet} = this.state;
+    return planet && (
       <div className="planet-container container mt-2 mb-5">
         <Link to="/" className="d-block text-center mb-2 mt-2"><i className="fas fa-home" /></Link>
         <div className="card">
@@ -71,13 +68,7 @@ export default class PlanetContainer extends React.Component<any, { planet, revi
                 <hr/>
                 <h5>Reviews</h5>
                 <div className="row">
-                  {reviews.data.map((review) => {
-                    return <div key={review.id} className="col-md-12">
-                      <p className="text-muted">{review.attributes.title}: {review.attributes.rating}</p>
-                      <p className="text-muted">{review.attributes.description}</p>
-                      <hr/>
-                    </div>
-                  })}
+                  <ReviewsContainer planet_id={planet.data.id} />
                 </div>
                 <hr/>
               </div>

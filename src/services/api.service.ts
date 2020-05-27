@@ -36,7 +36,7 @@ export const PlanetsService = {
   toggleLike (id: number) {
     return ApiService.get(`${process.env.GALAXY_ENDPOINT}/planets/${id}/likes`);
   },
-  reviews (id: number) {
-    return ApiService.get(`${process.env.GALAXY_ENDPOINT}/planets/${id}/reviews`);
+  reviews (id: number, pageNumber?: number) {
+    return ApiService.get(`${process.env.GALAXY_ENDPOINT}/planets/${id}/reviews?page=${pageNumber || 1}`);
   },
 };
