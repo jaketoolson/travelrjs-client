@@ -27,11 +27,13 @@ export default class PlanetsContainer extends React.Component<any, { data, loadi
 
     this.setState({data: data, loading: false}, () => store.dispatch(stopLoading()));
   }
+  
+  likeHandler = (e, id: number) => {
+    e.preventDefault();
+  }
 
   render() {
-    const loading = this.state.loading;
-    const data = this.state.data;
-
+    const {loading, data} = this.state;
     if (loading) {
       return <h3 className="center-of-screen text-white text-center">Fueling up the tanks, and reviewing ignition plans...</h3>;
     }
@@ -52,25 +54,24 @@ export default class PlanetsContainer extends React.Component<any, { data, loadi
               <div className="col-sm-3" key={item.id}>
                 <div className="item">
                   <div className="card mb-4">
-                    <img src={item.relationships.photo.links.thumb_src} alt={item.attributes.name} className="card-img-top"/>
-                    {/*<div className="card-img-overlay">*/}
-                    {/*  <span className="btn text-white text-right" onClick={() => this.toggleLike(item.id)}>*/}
-                    {/*    <i className="far fa-heart" />*/}
-                    {/*  </span>*/}
-                    {/*</div>*/}
+                    <Link to={`/planets/${item.id}`} className="card-overlay">
+                      <button className="card-heart btn text-white text-right" type="button" onClick={(e) => this.likeHandler(e, item.id)}>
+                        <i className="far fa-heart" />
+                      </button>
+                      <img src={item.relationships.photo.links.thumb_src} alt={item.attributes.name} className="card-img-top"/>
+                      <div className="overlay-container">
+                        <figure className="text-xs m-0 badge badge-primary">${item.attributes.price_dollars} per night</figure>
+                        <h5 className="card-title mb-0">{item.attributes.name}</h5>
+                        <small className="text-sm text-uppercase">{item.relationships.galaxy.meta.name}</small>
+                      </div>
+                    </Link>
+                    
                     <div className="card-body">
-                      <small className="text-muted text-xs text-uppercase">{item.relationships.galaxy.meta.name}</small>
-                      <h5 className="card-title">
-                        <Link to={`/planets/${item.id}`} className="title">{item.attributes.name}</Link>
-                      </h5>
-                      <p className="card-text text-muted">${item.attributes.price_dollars} per night</p>
                       <span className="text-muted text-xs">
                         <span>
                           <StarRating rating={(item.attributes.average_rating)} />
                         </span>
-                        <span className="ml-1">
-                          {item.attributes.total_reviews} Reviews
-                        </span>
+                        <span className="ml-1 text-muted">({item.attributes.total_reviews})</span>
                       </span>
                     </div>
                   </div>

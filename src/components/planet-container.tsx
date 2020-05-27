@@ -5,23 +5,26 @@ import {stopLoading} from "@/context/store";
 import {PlanetsService} from "@/services/api.service";
 import {StarRating} from "@/common/Stars";
 
-export default class PlanetContainer extends React.Component<any, { planet }> {
+export default class PlanetContainer extends React.Component<any, { planet, reviews }> {
   constructor(props) {
     super(props);
-    this.state = {planet: null};
+    this.state = {planet: null, reviews: []};
   }
 
   async componentDidMount() {
     const id = this.props.match.params.id;
     const planetRes = await PlanetsService.get(id);
     const planet = await planetRes.data;
+    
+    const reviewsRes = await PlanetsService.reviews(id);
+    const reviews = await reviewsRes.data;
 
-    this.setState({planet: planet}, () => store.dispatch(stopLoading()));
+    this.setState({planet: planet, reviews: reviews}, () => store.dispatch(stopLoading()));
   }
 
   render() {
-    const planet:any = this.state.planet;
-    return planet && (
+    const {planet, reviews} = this.state;
+    return planet && reviews && (
       <div className="planet-container container mt-2 mb-5">
         <Link to="/" className="d-block text-center mb-2 mt-2"><i className="fas fa-home" /></Link>
         <div className="card">
@@ -38,9 +41,7 @@ export default class PlanetContainer extends React.Component<any, { planet }> {
                   <li className="list-inline-item">
                     <StarRating rating={planet.data.attributes.average_rating} />
                   </li>
-                  <li className="list-inline-item">
-                    {planet.data.attributes.total_reviews} Reviews
-                  </li>
+                  <li className="list-inline-item">({planet.data.attributes.total_reviews})</li>
                 </ul>
                 <ul className="list-inline">
                   <li className="list-inline-item">
@@ -67,6 +68,18 @@ export default class PlanetContainer extends React.Component<any, { planet }> {
                   })}
                 </div>
                 )}
+                <hr/>
+                <h5>Reviews</h5>
+                <div className="row">
+                  {reviews.data.map((review) => {
+                    return <div key={review.id} className="col-md-12">
+                      <p className="text-muted">{review.attributes.title}: {review.attributes.rating}</p>
+                      <p className="text-muted">{review.attributes.description}</p>
+                      <hr/>
+                    </div>
+                  })}
+                </div>
+                <hr/>
               </div>
               <div className="col-md-5">
                 <div className="card border">
@@ -77,9 +90,7 @@ export default class PlanetContainer extends React.Component<any, { planet }> {
                         <span>
                           <StarRating rating={planet.data.attributes.average_rating} />
                         </span>
-                        <span className="ml-1">
-                          {planet.data.attributes.total_reviews} Reviews
-                        </span>
+                        <span className="ml-1">({planet.data.attributes.total_reviews})</span>
                       </span>
                     </div>
                     <div className="form-group mb-0 mt-3">

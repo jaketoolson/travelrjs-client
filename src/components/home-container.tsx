@@ -72,7 +72,6 @@ export default class HomeContainer extends React.Component<any, SearchPlanetsSta
 
   render() {
     const {galaxies, amenities, ready} = this.state;
-
     return (
       <section className="home-search">
         <div className="inner">
