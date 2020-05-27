@@ -1,7 +1,6 @@
 import * as React from 'react';
-import { Link } from 'react-router-dom'
-import {store} from "@/context/store";
-import {stopLoading} from "@/context/store";
+import {Link} from 'react-router-dom'
+import {stopLoading, store} from "@/context/store";
 import {PlanetsService} from "@/services/api.service";
 import {StarRating} from "@/common/Stars";
 
@@ -27,7 +26,7 @@ export default class PlanetsContainer extends React.Component<any, { data, loadi
 
     this.setState({data: data, loading: false}, () => store.dispatch(stopLoading()));
   }
-  
+
   likeHandler = (e, id: number) => {
     e.preventDefault();
   }
@@ -65,7 +64,7 @@ export default class PlanetsContainer extends React.Component<any, { data, loadi
                         <small className="text-sm text-uppercase">{item.relationships.galaxy.meta.name}</small>
                       </div>
                     </Link>
-                    
+
                     <div className="card-body">
                       <span className="text-muted text-xs">
                         <span>

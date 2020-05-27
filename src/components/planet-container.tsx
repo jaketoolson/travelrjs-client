@@ -1,7 +1,6 @@
 import * as React from 'react';
-import { Link } from 'react-router-dom'
-import {store} from "@/context/store";
-import {stopLoading} from "@/context/store";
+import {Link} from 'react-router-dom'
+import {stopLoading, store} from "@/context/store";
 import {PlanetsService} from "@/services/api.service";
 import {StarRating} from "@/common/Stars";
 import ReviewsContainer from "@/components/reviews-container";

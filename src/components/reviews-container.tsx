@@ -1,10 +1,8 @@
 import * as React from 'react';
-import { Link } from 'react-router-dom'
-import {store} from "@/context/store";
-import {stopLoading} from "@/context/store";
+import {stopLoading, store} from "@/context/store";
 import {PlanetsService} from "@/services/api.service";
-import {StarRating} from "@/common/Stars";
 import Pagination from "react-js-pagination";
+
 const moment = require('moment');
 
 interface ReviewsProps {
