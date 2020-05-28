@@ -69,7 +69,6 @@ export default class PlanetContainer extends React.Component<any, { planet }> {
                 <div className="row">
                   <ReviewsContainer planet_id={planet.data.id} />
                 </div>
-                <hr/>
               </div>
               <div className="col-md-5">
                 <div className="card border">

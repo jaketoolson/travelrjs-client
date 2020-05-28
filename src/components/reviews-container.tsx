@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {stopLoading, store} from "@/context/store";
 import {PlanetsService} from "@/services/api.service";
-import Pagination from "react-js-pagination";
+import {StarRating} from "@/common/Stars";
 
 const moment = require('moment');
 
@@ -32,7 +32,7 @@ export default class ReviewsContainer extends React.Component<ReviewsProps, Revi
     const reviews = await this.fetchReviews();
 
     this.setState({
-      reviews: reviews,
+      reviews: reviews.data,
       ready: true,
       activePage: reviews.meta.current_page,
       totalReviews: reviews.meta.total,
@@ -46,7 +46,7 @@ export default class ReviewsContainer extends React.Component<ReviewsProps, Revi
     }, async () => {
       const reviews = await this.fetchReviews(pageNumber);
       this.setState({
-        reviews: reviews,
+        reviews: this.state.reviews.concat(reviews.data),
         activePage: pageNumber,
         ready: true,
       });
@@ -62,23 +62,16 @@ export default class ReviewsContainer extends React.Component<ReviewsProps, Revi
     const {reviews, ready, activePage, totalReviews} = this.state;
     return (
       <div className="col-md-12">
-        {!ready && <><p className="text-muted">Loading...</p></>}
-        {ready && reviews.data.map((review) => {
+        {/*{!ready && <><p className="text-muted">Loading...</p></>}*/}
+        {reviews && reviews.map((review) => {
         return <div key={review.id}>
-          <p className="text-muted">{review.attributes.title}: {review.attributes.rating}</p>
+          <p className="text-muted">{review.attributes.title}: <StarRating rating={(review.attributes.rating)} /></p>
           <p className="text-muted">{review.attributes.description}</p>
-          <small className="text-muted">{moment(review.attributes.created_at.date).format('LLLL')}</small>
+          <time title={moment(review.attributes.created_at.date).format('LLLL')} className="text-muted">{moment(review.attributes.created_at.date).fromNow()}</time>
           <hr/>
         </div>
       })}
-        <Pagination
-          totalItemsCount={totalReviews}
-          activePage={activePage}
-          itemsCountPerPage={this.props.records_per_page || 5}
-          onChange={(pageNumber)=> this.handlePageChange(pageNumber)}
-          itemClass="page-item"
-          linkClass="page-link"
-        />
+        <button disabled={!ready} className="btn btn-default btn-light" type={"button"} onClick={() => this.handlePageChange(activePage+1)} >See more reviews</button>
       </div>
     )
   }
