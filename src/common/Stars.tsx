@@ -22,22 +22,22 @@ export const StarRating = ({rating, ...props}: {rating:number}) => {
   };
 
   return (
-    <div className="star-rating" title={`${rating}`}>
-      <div className="back-stars">
+    <span className="star-rating" title={`${rating}`}>
+      <span className="back-stars">
         <i className="far fa-star" aria-hidden="true" />
         <i className="far fa-star" aria-hidden="true" />
         <i className="far fa-star" aria-hidden="true" />
         <i className="far fa-star" aria-hidden="true" />
         <i className="far fa-star" aria-hidden="true" />
 
-        <div className="front-stars" style={style}>
+        <span className="front-stars" style={style}>
           <i className="fas fa-star" aria-hidden="true" />
           <i className="fas fa-star" aria-hidden="true" />
           <i className="fas fa-star" aria-hidden="true" />
           <i className="fas fa-star" aria-hidden="true" />
           <i className="fas fa-star" aria-hidden="true" />
-        </div>
-      </div>
-    </div>
+        </span>
+      </span>
+    </span>
   )
 }

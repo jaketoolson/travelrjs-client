@@ -15,6 +15,7 @@ interface ReviewState {
   ready: boolean,
   activePage: number,
   totalReviews: number,
+  nextPage: number|null,
 }
 
 export default class ReviewsContainer extends React.Component<ReviewsProps, ReviewState> {
@@ -25,6 +26,7 @@ export default class ReviewsContainer extends React.Component<ReviewsProps, Revi
       ready: false,
       activePage: 1,
       totalReviews: 1,
+      nextPage: null,
     };
   }
 
@@ -36,10 +38,15 @@ export default class ReviewsContainer extends React.Component<ReviewsProps, Revi
       ready: true,
       activePage: reviews.meta.current_page,
       totalReviews: reviews.meta.total,
+      nextPage: reviews.meta.next_page,
     }, () => store.dispatch(stopLoading()));
   }
 
-  handlePageChange = async (pageNumber: number) => {
+  handlePageChange = async (pageNumber: number|null) => {
+    if (!pageNumber) {
+      return;
+    }
+
     // Hrmmmm... need hooks ...
     this.setState({
       ready: false,
@@ -48,6 +55,7 @@ export default class ReviewsContainer extends React.Component<ReviewsProps, Revi
       this.setState({
         reviews: this.state.reviews.concat(reviews.data),
         activePage: pageNumber,
+        nextPage: reviews.meta.next_page,
         ready: true,
       });
     });
@@ -59,19 +67,19 @@ export default class ReviewsContainer extends React.Component<ReviewsProps, Revi
   }
 
   render() {
-    const {reviews, ready, activePage, totalReviews} = this.state;
+    const {reviews, ready, nextPage} = this.state;
     return (
       <div className="col-md-12">
-        {/*{!ready && <><p className="text-muted">Loading...</p></>}*/}
         {reviews && reviews.map((review) => {
         return <div key={review.id}>
-          <p className="text-muted">{review.attributes.title}: <StarRating rating={(review.attributes.rating)} /></p>
+          <p className="text-muted">"{review.attributes.title}"</p>
+          <p className="text-muted">{review.attributes.author.name}: <StarRating rating={(review.attributes.rating)} /></p>
           <p className="text-muted">{review.attributes.description}</p>
-          <time title={moment(review.attributes.created_at.date).format('LLLL')} className="text-muted">{moment(review.attributes.created_at.date).fromNow()}</time>
+          <time title={moment(review.attributes.created_at.date).format('LLLL')} className="text-xs text-muted">{moment(review.attributes.created_at.date).fromNow()}</time>
           <hr/>
         </div>
       })}
-        <button disabled={!ready} className="btn btn-default btn-light" type={"button"} onClick={() => this.handlePageChange(activePage+1)} >See more reviews</button>
+        <button disabled={!ready || !nextPage} className="btn btn-default btn-light" type={"button"} onClick={() => this.handlePageChange(nextPage)} >See more reviews</button>
       </div>
     )
   }
