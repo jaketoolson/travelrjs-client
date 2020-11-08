@@ -14,7 +14,7 @@ module.exports = {
   mode: "development",
   entry: ['./src/main.tsx'],
   output: {
-    path: path.join(__dirname, '/builds/js'),
+    path: path.join(__dirname, '/dist/js'),
     filename: 'app.js'
   },
   module: {

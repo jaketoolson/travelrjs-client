@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "jsx": "react",
-    "outDir": "build",
+    "outDir": "dist",
     "target": "es6",
     "module": "commonjs",
     "moduleResolution": "node",
